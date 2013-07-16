@@ -694,6 +694,12 @@ AwsSum.prototype.send = function(operation, args, opts, callback) {
 
     // and finally ... add our own User-Agent so Amazon et al can help debug problems when they occur
     setHeader( options.headers, 'User-Agent', userAgent );
+    
+    try{
+      setHeader( options.headers, 'Content-Length', options.body.length);
+    } catch(e) {
+      // don't fail if this does not work, don't always have to set Content-Length
+    }
 
     // ---
 
